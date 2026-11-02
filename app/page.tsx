@@ -1,5 +1,5 @@
-import { AnimationWorkshop } from "@/components/animation-workshop";
+import { AnimationsCSS } from "@/components/animations-css";
 
 export default function Home() {
-  return <AnimationWorkshop />;
+  return <AnimationsCSS />;
 }

@@ -10,8 +10,9 @@ import {
 } from "lucide-react";
 import { useRef, useState } from "react";
 import { PlayingCard, type PowerId } from "@/components/playing-card";
+import "@/components/animations.css";
 
-export function AnimationWorkshop() {
+export function AnimationsCSS() {
   const powerIds: PowerId[] = [
     "p1",
     "p2",

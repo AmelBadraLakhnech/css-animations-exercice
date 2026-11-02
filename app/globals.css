@@ -534,28 +534,6 @@ main {
   flex: 0 1 144px;
 }
 
-.attack-right {
-  animation: attack-right 680ms cubic-bezier(0.24, 0.68, 0.26, 1) both;
-  z-index: 2;
-}
-
-.attack-left {
-  animation: attack-left 680ms cubic-bezier(0.24, 0.68, 0.26, 1) both;
-  z-index: 2;
-}
-
-@keyframes attack-right {
-  0%, 100% { transform: translateX(0) rotate(0) scale(1); }
-  28% { transform: translateX(-130px) rotate(-2deg) scale(0.98); }
-  62% { transform: translateX(32px) rotate(3deg) scale(1.06); }
-}
-
-@keyframes attack-left {
-  0%, 100% { transform: translateX(0) rotate(0) scale(1); }
-  28% { transform: translateX(13px) rotate(2deg) scale(0.98); }
-  62% { transform: translateX(-32px) rotate(-3deg) scale(1.06); }
-}
-
 .mana-control {
   margin-top: 18px;
   max-width: 218px;
