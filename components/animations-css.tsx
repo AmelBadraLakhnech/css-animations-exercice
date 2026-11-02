@@ -42,53 +42,25 @@ export function AnimationsCSS() {
   const firstCardId = "card1";
 
   async function afficherCarte(visible: boolean) {
-    // TODO: Début
-    // On utilise la fonction setCardVisible pour mettre à jour l'état de visibilité de la carte.
-    if(visible) {
-      setCardVisible(true);
-      // La classe "fade-in" est appliquée automatiquement via le rendu conditionnel dans le JSX.
-    }
-    else {
-      const cardElement = document.getElementById(firstCardId);
-
-      cardElement!.classList.add("fade-out");
-
-      // On attend 500ms pour que l'animation de disparition se termine avant de mettre à jour l'état.
-      await new Promise(resolve => setTimeout(resolve, 500));
-      setCardVisible(visible);
-    }
-    // TODO: Fin
+    // TODO Afficher: Pour afficher rien de spécial à faire, mais assurez-vous que la classe "fade-in" est appliquée à la carte
+    // TODO: Cacher: Pour cacher, il faut d'abord ajouter la classe "fade-out" à la carte, puis attendre 500ms pour que l'animation se termine avant de mettre à jour l'état
+    setCardVisible(visible);
   }
 
   const attackingCardsIds = ["playerCardId", "opponentCardId"];
 
   async function jouerAttaque(side: "player" | "opponent") {
-    // TODO: Début
-    
-    const cardElement = document.getElementById(`${side}CardId`);
-    if (cardElement) {
-      let animationClass = `${side}-attack`;
-      cardElement.classList.remove(animationClass);
-      void cardElement.offsetWidth; // Forcer un reflow
-      cardElement.classList.add(animationClass);
-    }
-    // TODO: Fin
+    // TODO: Il faut obtenir l'élément du DOM correspondant à la carte du côté spécifié 
+    // Les ids utilisés sont dans l'array attackingCardsIds juste au-dessus de cette fonction.
+    // Il y a deux animations possibles : "player-attack" et "opponent-attack"
   }
   
   function activatePower() {
-    // Début TODO
-    const powerElement = document.getElementById(`${selectedCard}_${selectedPower}`);
-
-    if (!powerElement) {
-      return;
-    }
-
-    powerElement.classList.remove("power-active");
-    void powerElement.offsetWidth; // Forcer un reflow
-    powerElement.classList.add("power-active");
-    // Fin TODO
+    // TODO: Il faut obtenir l'élément du DOM correspondant à la carte et au pouvoir sélectionnés
+    // puis lui appliquer la classe "power-active" pour déclencher l'animation.
   }
 
+  // RIEN À FAIRE DANS CETTE FONCTION
   function selectCard(cardId: string) {
     const card = powerCards.find((candidate) => candidate.id === cardId);
     setSelectedCard(cardId);
@@ -97,6 +69,7 @@ export function AnimationsCSS() {
     }
   }
 
+  // Il y a peu de choses à faire dans le reste du code, il y a 2 TODOs à compléter
   return (
     <main>
       <section className="exercises-section" id="exercices">
@@ -118,7 +91,7 @@ export function AnimationsCSS() {
             </div>
             <div className="demo-stage hand-stage" aria-label="Démonstration de l’apparition des cartes">
               <div className="card-row">
-                {cardVisible && <PlayingCard id={firstCardId} className="fade-in"/>}
+                {cardVisible && <PlayingCard id={firstCardId} /* TODO: On peut mettre la classe d'animation fadeIn ici, comme ça l'objet l'a dès qu'il existe*//>}
               </div>
             </div>
           </article>
@@ -174,7 +147,7 @@ export function AnimationsCSS() {
             <div className="demo-stage mana-stage" aria-label={`Cartes jouables avec ${mana} manas`}>
               <div className="card-row">
                 {costCards.map((card) => (
-                  <PlayingCard key={card.id} id={card.id} manaCost={card.cost} className={card.cost <= mana ? "card-can-be-played" : ""}/>
+                  <PlayingCard key={card.id} id={card.id} manaCost={card.cost} /*TODO ajouter le className pour jouer l'animation *//>
                 ))}
               </div>
             </div>
