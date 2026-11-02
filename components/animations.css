@@ -19,3 +19,40 @@
   28% { transform: translateX(13px) rotate(2deg) scale(0.98); }
   62% { transform: translateX(-32px) rotate(-3deg) scale(1.06); }
 }
+
+@keyframes MONfadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes MONfadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.MONfadeIn {
+  animation: MONfadeIn 5s ease-in-out both;
+}
+
+.MONfadeOut {
+  animation: MONfadeOut 5s ease-in-out both;
+}
+
+/* Ligne lumineuse qui pulse et flotte légèrement : la carte peut être jouée */
+@keyframes sci-playable-card-can-be-played {
+    0% {
+        box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.5), 0 0 8px 1px rgba(250, 204, 21, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 0 3px #fef08a, 0 0 22px 6px rgba(250, 204, 21, 0.9);
+    }
+    100% {
+        box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.5), 0 0 8px 1px rgba(250, 204, 21, 0.3);
+    }
+}
+
+.sci-playable-card-can-be-played {
+    border-radius: 12px;
+    animation: sci-playable-card-can-be-played 1.6s ease-in-out infinite;
+}
+

@@ -38,11 +38,25 @@ export function AnimationsCSS() {
 
   const firstCardId = "card1";
 
-  function afficherCarte(visible: boolean) {
-    // On utilise la fonction setCardVisible pour mettre à jour l'état de visibilité de la carte.
-    setCardVisible(visible);
+  async function afficherCarte(visible: boolean) {
     // TODO: Début
+    // On utilise la fonction setCardVisible pour mettre à jour l'état de visibilité de la carte.
+    if(visible) {
+      setCardVisible(true);
+      // La classe "fadeIn" est appliquée automatiquement via le rendu conditionnel dans le JSX.
+    }
+    else {
 
+      const cardElement = document.getElementById(firstCardId);
+
+      cardElement!.classList.remove("MONfadeIn");
+      cardElement!.classList.add("MONfadeOut");
+
+      // On attend 5000ms pour que l'animation de disparition se termine avant de mettre à jour l'état.
+      await new Promise(resolve => setTimeout(resolve, 5000));
+      cardElement!.classList.add("MONfadeIn");
+      setCardVisible(visible);
+    }
     // TODO: Fin
   }
 
@@ -72,7 +86,6 @@ export function AnimationsCSS() {
     // On utilise la fonction setMana pour mettre à jour l'état de la mana.
     setMana(nouveauMana);
     // TODO: Début
-
     // TODO: Fin
   }
 
@@ -114,7 +127,7 @@ export function AnimationsCSS() {
             </div>
             <div className="demo-stage hand-stage" aria-label="Démonstration de l’apparition des cartes">
               <div className="card-row">
-                {cardVisible && <PlayingCard id={firstCardId}/>}
+                {cardVisible && <PlayingCard id={firstCardId} className="MONfadeIn"/>}
               </div>
             </div>
           </article>
@@ -170,7 +183,7 @@ export function AnimationsCSS() {
             <div className="demo-stage mana-stage" aria-label={`Cartes jouables avec ${mana} manas`}>
               <div className="card-row">
                 {costCards.map((card) => (
-                  <PlayingCard key={card.id} id={card.id} manaCost={card.cost} />
+                  <PlayingCard key={card.id} id={card.id} manaCost={card.cost} className={card.cost <= mana ? "sci-playable-card-can-be-played" : ""}/>
                 ))}
               </div>
             </div>
