@@ -1,9 +1,9 @@
-.attack-right {
+.player-attack {
   animation: attack-right 680ms cubic-bezier(0.24, 0.68, 0.26, 1) both;
   z-index: 2;
 }
 
-.attack-left {
+.opponent-attack {
   animation: attack-left 680ms cubic-bezier(0.24, 0.68, 0.26, 1) both;
   z-index: 2;
 }
@@ -16,26 +16,26 @@
 
 @keyframes attack-left {
   0%, 100% { transform: translateX(0) rotate(0) scale(1); }
-  28% { transform: translateX(13px) rotate(2deg) scale(0.98); }
+  28% { transform: translateX(130px) rotate(2deg) scale(0.98); }
   62% { transform: translateX(-32px) rotate(-3deg) scale(1.06); }
 }
 
-@keyframes MONfadeIn {
+@keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
 
-@keyframes MONfadeOut {
+@keyframes fadeOut {
   from { opacity: 1; }
   to { opacity: 0; }
 }
 
-.MONfadeIn {
-  animation: MONfadeIn 5s ease-in-out both;
+.fadeIn {
+  animation: fadeIn 0.5s ease-in-out both;
 }
 
-.MONfadeOut {
-  animation: MONfadeOut 5s ease-in-out both;
+.fadeOut {
+  animation: fadeOut 0.5s ease-in-out both;
 }
 
 /* Ligne lumineuse qui pulse et flotte légèrement : la carte peut être jouée */

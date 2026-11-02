@@ -49,12 +49,12 @@ export function AnimationsCSS() {
 
       const cardElement = document.getElementById(firstCardId);
 
-      cardElement!.classList.remove("MONfadeIn");
-      cardElement!.classList.add("MONfadeOut");
+      cardElement!.classList.remove("fadeIn");
+      cardElement!.classList.add("fadeOut");
 
-      // On attend 5000ms pour que l'animation de disparition se termine avant de mettre à jour l'état.
-      await new Promise(resolve => setTimeout(resolve, 5000));
-      cardElement!.classList.add("MONfadeIn");
+      // On attend 500ms pour que l'animation de disparition se termine avant de mettre à jour l'état.
+      await new Promise(resolve => setTimeout(resolve, 500));
+      //cardElement!.classList.add("fadeIn");
       setCardVisible(visible);
     }
     // TODO: Fin
@@ -62,19 +62,19 @@ export function AnimationsCSS() {
 
   const attackingCardsIds = ["playerCardId", "opponentCardId"];
 
-  function jouerAttaque(side: "player" | "opponent") {
+  async function jouerAttaque(side: "player" | "opponent") {
     // TODO: Début
-
+    const cardElement = document.getElementById(`${side}CardId`);
+    if (cardElement) {
+      let animationClass = `${side}-attack`;
+      cardElement.classList.add(animationClass);
+      await new Promise(resolve => setTimeout(resolve, 680));
+      cardElement.classList.remove(animationClass);
+    }
     // TODO: Fin
   }
 
-  function selectCard(cardId: string) {
-    const card = powerCards.find((candidate) => candidate.id === cardId);
-    setSelectedCard(cardId);
-    if (card && !card.powerIds.includes(selectedPower)) {
-      setSelectedPower(card.powerIds[0]);
-    }
-  }
+  
 
   const costCards = [
                   { id: "cost1", cost: 1 },
@@ -106,6 +106,15 @@ export function AnimationsCSS() {
     // Fin TODO
   }
 
+
+  function selectCard(cardId: string) {
+    const card = powerCards.find((candidate) => candidate.id === cardId);
+    setSelectedCard(cardId);
+    if (card && !card.powerIds.includes(selectedPower)) {
+      setSelectedPower(card.powerIds[0]);
+    }
+  }
+
   return (
     <main>
       <section className="exercises-section" id="exercices">
@@ -127,7 +136,7 @@ export function AnimationsCSS() {
             </div>
             <div className="demo-stage hand-stage" aria-label="Démonstration de l’apparition des cartes">
               <div className="card-row">
-                {cardVisible && <PlayingCard id={firstCardId} className="MONfadeIn"/>}
+                {cardVisible && <PlayingCard id={firstCardId} className="fadeIn"/>}
               </div>
             </div>
           </article>
