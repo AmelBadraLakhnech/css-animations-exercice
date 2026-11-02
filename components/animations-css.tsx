@@ -42,8 +42,11 @@ export function AnimationsCSS() {
   const firstCardId = "card1";
 
   async function afficherCarte(visible: boolean) {
-    // TODO Afficher: Pour afficher rien de spécial à faire, mais assurez-vous que la classe "fade-in" est appliquée à la carte
+    // TODO Afficher: Pour afficher rien de spécial à faire, mais assurez-vous que la classe "fade-in" est appliquée à la carte.
+    // Regardez plus bas pour utiliser la propriété className directement sur l'élément!
+    
     // TODO: Cacher: Pour cacher, il faut d'abord ajouter la classe "fade-out" à la carte, puis attendre 500ms pour que l'animation se termine avant de mettre à jour l'état
+    
     setCardVisible(visible);
   }
 
