@@ -39,8 +39,6 @@ export function AnimationsCSS() {
   const [selectedCard, setSelectedCard] = useState(powerCards[0].id);
   const [selectedPower, setSelectedPower] = useState<PowerId>("p1");
   
-  const chosenCard = powerCards.find((card) => card.id === selectedCard) ?? powerCards[0];
-  
   const firstCardId = "card1";
 
   async function afficherCarte(visible: boolean) {
