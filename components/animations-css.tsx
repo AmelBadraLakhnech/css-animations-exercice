@@ -36,9 +36,9 @@ export function AnimationsCSS() {
 
   const [cardVisible, setCardVisible] = useState(false);
   const [mana, setMana] = useState(3);
-  const [selectedCard, setSelectedCard] = useState(powerCards[0].id);
-  const [selectedPower, setSelectedPower] = useState<PowerId>("p1");
-  
+  const [selectedCardId, setSelectedCardId] = useState(powerCards[0].id);
+  const [selectedPowerId, setSelectedPowerId] = useState<PowerId>("p1");
+
   const firstCardId = "card1";
 
   async function afficherCarte(visible: boolean) {
@@ -61,15 +61,6 @@ export function AnimationsCSS() {
   function activatePower() {
     // TODO: Il faut obtenir l'élément du DOM correspondant à la carte et au pouvoir sélectionnés
     // puis lui appliquer la classe "power-active" pour déclencher l'animation.
-  }
-
-  // RIEN À FAIRE DANS CETTE FONCTION
-  function selectCard(cardId: string) {
-    const card = powerCards.find((candidate) => candidate.id === cardId);
-    setSelectedCard(cardId);
-    if (card && !card.powerIds.includes(selectedPower)) {
-      setSelectedPower(card.powerIds[0]);
-    }
   }
 
   // Il y a peu de choses à faire dans le reste du code, il y a 2 TODOs à compléter
@@ -163,13 +154,13 @@ export function AnimationsCSS() {
               <div className="power-controls">
                 <label>
                   <span className="control-label">CARTE</span>
-                  <select value={selectedCard} onChange={(event) => selectCard(event.target.value)}>
+                  <select value={selectedCardId} onChange={(event) => setSelectedCardId(event.target.value)}>
                     {powerCards.map((card) => <option key={card.id} value={card.id}>{card.id}</option>)}
                   </select>
                 </label>
                 <label>
                   <span className="control-label">POUVOIR</span>
-                  <select value={selectedPower} onChange={(event) => { setSelectedPower(event.target.value as PowerId); }}>
+                  <select value={selectedPowerId} onChange={(event) => { setSelectedPowerId(event.target.value as PowerId); }}>
                     {powerIds.map((power) => (
                       <option key={power} value={power}>{power}</option>
                     ))}
@@ -187,7 +178,7 @@ export function AnimationsCSS() {
                     key={card.id}
                     id={card.id}
                     powerIds={card.powerIds}
-                    className={selectedCard === card.id ? "selected-card" : ""}
+                    className={selectedCardId === card.id ? "selected-card" : ""}
                   />
                 ))}
               </div>
