@@ -11,10 +11,6 @@ import {
 import { useRef, useState } from "react";
 import { PlayingCard, type PowerId } from "@/components/playing-card";
 
-
-
-
-
 export function AnimationWorkshop() {
   const powerIds: PowerId[] = [
     "p1",
@@ -39,7 +35,7 @@ export function AnimationWorkshop() {
   const chosenCard = powerCards.find((card) => card.id === selectedCard) ?? powerCards[0];
   const powerIsAvailable = chosenCard.powerIds.includes(selectedPower);
 
-  const firstCardId = "card_1";
+  const firstCardId = "card1";
 
   function afficherCarte(visible: boolean) {
     // On utilise la fonction setCardVisible pour mettre à jour l'état de visibilité de la carte.
@@ -66,9 +62,9 @@ export function AnimationWorkshop() {
   }
 
   const costCards = [
-                  { id: "cost_1", cost: 1 },
-                  { id: "cost_3", cost: 3 },
-                  { id: "cost_5", cost: 5 },
+                  { id: "cost1", cost: 1 },
+                  { id: "cost3", cost: 3 },
+                  { id: "cost5", cost: 5 },
                 ];
 
   function changerMana(nouveauMana: number) {
