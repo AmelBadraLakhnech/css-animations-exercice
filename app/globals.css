@@ -480,26 +480,6 @@ main {
   background: #d0a444;
 }
 
-.power-token.power-active {
-  animation: power-activation 800ms cubic-bezier(0.2, 0.72, 0.25, 1) both;
-  z-index: 4;
-}
-
-@keyframes power-activation {
-  0% {
-    filter: brightness(1);
-    transform: scale(1);
-  }
-  46% {
-    filter: brightness(1.7) saturate(1.2);
-    transform: scale(1.65);
-  }
-  100% {
-    filter: brightness(1.2);
-    transform: scale(1);
-  }
-}
-
 .selected-card {
   border-color: #8da78f;
   box-shadow: 0 0 0 2px #8da78f38, 0 5px 14px #2b35300c;

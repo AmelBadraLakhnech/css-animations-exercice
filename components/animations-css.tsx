@@ -28,14 +28,19 @@ export function AnimationsCSS() {
     { id: "c33", powerIds: ["p1", "p3"] },
   ];
 
+  const costCards = [
+    { id: "cost1", cost: 1 },
+    { id: "cost3", cost: 3 },
+    { id: "cost5", cost: 5 },
+  ];
+
   const [cardVisible, setCardVisible] = useState(false);
   const [mana, setMana] = useState(3);
   const [selectedCard, setSelectedCard] = useState(powerCards[0].id);
   const [selectedPower, setSelectedPower] = useState<PowerId>("p1");
   
   const chosenCard = powerCards.find((card) => card.id === selectedCard) ?? powerCards[0];
-  const powerIsAvailable = chosenCard.powerIds.includes(selectedPower);
-
+  
   const firstCardId = "card1";
 
   async function afficherCarte(visible: boolean) {
@@ -43,18 +48,15 @@ export function AnimationsCSS() {
     // On utilise la fonction setCardVisible pour mettre à jour l'état de visibilité de la carte.
     if(visible) {
       setCardVisible(true);
-      // La classe "fadeIn" est appliquée automatiquement via le rendu conditionnel dans le JSX.
+      // La classe "fade-in" est appliquée automatiquement via le rendu conditionnel dans le JSX.
     }
     else {
-
       const cardElement = document.getElementById(firstCardId);
 
-      cardElement!.classList.remove("fadeIn");
-      cardElement!.classList.add("fadeOut");
+      cardElement!.classList.add("fade-out");
 
       // On attend 500ms pour que l'animation de disparition se termine avant de mettre à jour l'état.
       await new Promise(resolve => setTimeout(resolve, 500));
-      //cardElement!.classList.add("fadeIn");
       setCardVisible(visible);
     }
     // TODO: Fin
@@ -64,48 +66,30 @@ export function AnimationsCSS() {
 
   async function jouerAttaque(side: "player" | "opponent") {
     // TODO: Début
+    
     const cardElement = document.getElementById(`${side}CardId`);
     if (cardElement) {
       let animationClass = `${side}-attack`;
-      cardElement.classList.add(animationClass);
-      await new Promise(resolve => setTimeout(resolve, 680));
       cardElement.classList.remove(animationClass);
+      void cardElement.offsetWidth; // Forcer un reflow
+      cardElement.classList.add(animationClass);
     }
     // TODO: Fin
   }
-
   
-
-  const costCards = [
-                  { id: "cost1", cost: 1 },
-                  { id: "cost3", cost: 3 },
-                  { id: "cost5", cost: 5 },
-                ];
-
-  function changerMana(nouveauMana: number) {
-    // On utilise la fonction setMana pour mettre à jour l'état de la mana.
-    setMana(nouveauMana);
-    // TODO: Début
-    // TODO: Fin
-  }
-
-  
-
-  
-
   function activatePower() {
     // Début TODO
     const powerElement = document.getElementById(`${selectedCard}_${selectedPower}`);
 
-    if (!powerElement || !powerIsAvailable) {
+    if (!powerElement) {
       return;
     }
 
     powerElement.classList.remove("power-active");
-    requestAnimationFrame(() => powerElement.classList.add("power-active"));
+    void powerElement.offsetWidth; // Forcer un reflow
+    powerElement.classList.add("power-active");
     // Fin TODO
   }
-
 
   function selectCard(cardId: string) {
     const card = powerCards.find((candidate) => candidate.id === cardId);
@@ -136,7 +120,7 @@ export function AnimationsCSS() {
             </div>
             <div className="demo-stage hand-stage" aria-label="Démonstration de l’apparition des cartes">
               <div className="card-row">
-                {cardVisible && <PlayingCard id={firstCardId} className="fadeIn"/>}
+                {cardVisible && <PlayingCard id={firstCardId} className="fade-in"/>}
               </div>
             </div>
           </article>
@@ -170,11 +154,11 @@ export function AnimationsCSS() {
               <p>Modifiez votre budget de mana. Les cartes jouables s’illuminent dès que vous en avez assez.</p>
               <div className="mana-control">
                 <div className="mana-stepper">
-                  <button className="stepper-button" onClick={() => changerMana(Math.max(0, mana - 1))} disabled={mana === 0} aria-label="Retirer un mana">
+                  <button className="stepper-button" onClick={() => setMana(Math.max(0, mana - 1))} disabled={mana === 0} aria-label="Retirer un mana">
                     <Minus size={16} />
                   </button>
                   <span className="mana-total"><Zap size={17} /> {mana}<small>/ 6</small></span>
-                  <button className="stepper-button" onClick={() => changerMana(Math.min(6, mana + 1))} disabled={mana === 6} aria-label="Ajouter un mana">
+                  <button className="stepper-button" onClick={() => setMana(Math.min(6, mana + 1))} disabled={mana === 6} aria-label="Ajouter un mana">
                     <Plus size={16} />
                   </button>
                 </div>
@@ -183,7 +167,7 @@ export function AnimationsCSS() {
                   className="mana-slider"
                   max={6}
                   min={0}
-                  onChange={(event) => changerMana(Number(event.target.value))}
+                  onChange={(event) => setMana(Number(event.target.value))}
                   type="range"
                   value={mana}
                 />
@@ -192,7 +176,7 @@ export function AnimationsCSS() {
             <div className="demo-stage mana-stage" aria-label={`Cartes jouables avec ${mana} manas`}>
               <div className="card-row">
                 {costCards.map((card) => (
-                  <PlayingCard key={card.id} id={card.id} manaCost={card.cost} className={card.cost <= mana ? "sci-playable-card-can-be-played" : ""}/>
+                  <PlayingCard key={card.id} id={card.id} manaCost={card.cost} className={card.cost <= mana ? "card-can-be-played" : ""}/>
                 ))}
               </div>
             </div>
@@ -218,7 +202,7 @@ export function AnimationsCSS() {
                   </select>
                 </label>
               </div>
-              <button className="button-primary" onClick={activatePower} disabled={!powerIsAvailable}>
+              <button className="button-primary" onClick={activatePower}>
                 Tester le pouvoir
               </button>
             </div>
