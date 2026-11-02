@@ -91,7 +91,7 @@ export function AnimationsCSS() {
             </div>
             <div className="demo-stage hand-stage" aria-label="Démonstration de l’apparition des cartes">
               <div className="card-row">
-                {cardVisible && <PlayingCard id={firstCardId} /* TODO: On peut mettre la classe d'animation fadeIn ici, comme ça l'objet l'a dès qu'il existe*//>}
+                {cardVisible && <PlayingCard id={firstCardId} /* TODO: On peut mettre la classe d'animation fade-in ici, comme ça l'objet l'a dès qu'il existe*//>}
               </div>
             </div>
           </article>

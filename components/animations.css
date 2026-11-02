@@ -15,11 +15,6 @@
   100% { opacity: 1; }
 }
 
-@keyframes fade-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
 /* Ligne lumineuse qui pulse et flotte légèrement : la carte peut être jouée */
 @keyframes card-can-be-played {
     0% {
@@ -58,10 +53,6 @@
 
 .fade-in {
   animation: fade-in 0.5s ease-in-out both;
-}
-
-.fade-out {
-  animation: fade-out 0.5s ease-in-out both;
 }
 
 .card-can-be-played {
