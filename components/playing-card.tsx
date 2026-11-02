@@ -1,16 +1,13 @@
 export type PowerId = "p1" | "p2" | "p3";
 
-const powers: Record<PowerId, { label: string; color: string }> = {
-  p1: { label: "Flamme", color: "coral" },
-  p2: { label: "Vague", color: "blue" },
-  p3: { label: "Éclair", color: "gold" },
+const powers: Record<PowerId, { color: string }> = {
+  p1: { color: "coral" },
+  p2: { color: "blue" },
+  p3: { color: "gold" },
 };
 
 type PlayingCardProps = {
   id: string;
-  title: string;
-  subtitle: string;
-  theme: "coral" | "blue" | "green" | "violet" | "gold" | "sand";
   manaCost?: number;
   powerIds?: PowerId[];
   className?: string;
@@ -18,9 +15,6 @@ type PlayingCardProps = {
 
 export function PlayingCard({
   id,
-  title,
-  subtitle,
-  theme,
   manaCost,
   powerIds = [],
   className = "",
@@ -28,14 +22,12 @@ export function PlayingCard({
   return (
     <article
       className={`playing-card ${className}`}
-      data-theme={theme}
       id={id}
-      aria-label={`${title}${manaCost === undefined ? "" : `, coût ${manaCost} manas`}`}
+      aria-label={`${manaCost === undefined ? "" : `, coût ${manaCost} manas`}`}
     >
       <div className="card-heading">
         <div>
           <span className="card-id">{id}</span>
-          <h3>{title}</h3>
         </div>
         {manaCost !== undefined && (
           <span className="mana-gem" aria-label={`${manaCost} manas`}>
@@ -43,13 +35,8 @@ export function PlayingCard({
           </span>
         )}
       </div>
-      <div className="card-art" aria-hidden="true">
-        <span className="art-orbit art-orbit-one" />
-        <span className="art-orbit art-orbit-two" />
-        <span className="art-core" />
-      </div>
+
       <div className="card-footer">
-        <span>{subtitle}</span>
         {powerIds.length > 0 && (
           <div className="power-list" aria-label="Pouvoirs">
             {powerIds.map((powerId) => (
@@ -58,8 +45,8 @@ export function PlayingCard({
                 data-power-id={powerId}
                 id={`${id}_${powerId}`}
                 key={powerId}
-                title={`${powers[powerId].label} (${powerId})`}
-                aria-label={`${powers[powerId].label}, ${powerId}`}
+                title={`${powerId}`}
+                aria-label={`${powerId}`}
               >
                 {powerId.slice(1)}
               </span>
