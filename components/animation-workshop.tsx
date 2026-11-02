@@ -11,31 +11,35 @@ import {
 import { useRef, useState } from "react";
 import { PlayingCard, type PowerId } from "@/components/playing-card";
 
-const powerCards: {
-  id: string;
-  powerIds: PowerId[];
-}[] = [
-  { id: "c42", powerIds: ["p1", "p2"] },
-  { id: "c67", powerIds: ["p2", "p3"] },
-  { id: "c33", powerIds: ["p1", "p3"] },
-];
 
-const powerIds: PowerId[] = [
-  "p1",
-  "p2",
-  "p3",
-];
+
+
 
 export function AnimationWorkshop() {
+  const powerIds: PowerId[] = [
+    "p1",
+    "p2",
+    "p3",
+  ];
+
+  const powerCards: {
+    id: string;
+    powerIds: PowerId[];
+  }[] = [
+    { id: "c42", powerIds: ["p1", "p2"] },
+    { id: "c67", powerIds: ["p2", "p3"] },
+    { id: "c33", powerIds: ["p1", "p3"] },
+  ];
+
   const [cardVisible, setCardVisible] = useState(false);
-  const [attackingSide, setAttackingSide] = useState<"player" | "opponent" | null>(null);
-  const attackFrame = useRef<number | null>(null);
   const [mana, setMana] = useState(3);
   const [selectedCard, setSelectedCard] = useState(powerCards[0].id);
   const [selectedPower, setSelectedPower] = useState<PowerId>("p1");
   
   const chosenCard = powerCards.find((card) => card.id === selectedCard) ?? powerCards[0];
   const powerIsAvailable = chosenCard.powerIds.includes(selectedPower);
+
+  const firstCardId = "card_1";
 
   function afficherCarte(visible: boolean) {
     // On utilise la fonction setCardVisible pour mettre à jour l'état de visibilité de la carte.
@@ -45,12 +49,12 @@ export function AnimationWorkshop() {
     // TODO: Fin
   }
 
-  function replayAttack(side: "player" | "opponent") {
-    setAttackingSide(null);
-    if (attackFrame.current !== null) {
-      cancelAnimationFrame(attackFrame.current);
-    }
-    attackFrame.current = requestAnimationFrame(() => setAttackingSide(side));
+  const attackingCardsIds = ["playerCardId", "opponentCardId"];
+
+  function jouerAttaque(side: "player" | "opponent") {
+    // TODO: Début
+
+    // TODO: Fin
   }
 
   function selectCard(cardId: string) {
@@ -61,6 +65,12 @@ export function AnimationWorkshop() {
     }
   }
 
+  const costCards = [
+                  { id: "cost_1", cost: 1 },
+                  { id: "cost_3", cost: 3 },
+                  { id: "cost_5", cost: 5 },
+                ];
+
   function changerMana(nouveauMana: number) {
     // On utilise la fonction setMana pour mettre à jour l'état de la mana.
     setMana(nouveauMana);
@@ -68,6 +78,10 @@ export function AnimationWorkshop() {
 
     // TODO: Fin
   }
+
+  
+
+  
 
   function activatePower() {
     // Début TODO
@@ -99,12 +113,11 @@ export function AnimationWorkshop() {
                   Cacher la carte
                 </button>
               </div>
-                
               
             </div>
             <div className="demo-stage hand-stage" aria-label="Démonstration de l’apparition des cartes">
               <div className="card-row">
-                {cardVisible && <PlayingCard id="card-1" />}
+                {cardVisible && <PlayingCard id={firstCardId}/>}
               </div>
             </div>
           </article>
@@ -114,10 +127,10 @@ export function AnimationWorkshop() {
               <h3>Attaque!</h3>
               <p>Une carte recule pour prendre son élan, puis avance vers son adversaire. Testez les deux côtés.</p>
               <div className="button-pair">
-                <button className="button-primary" onClick={() => replayAttack("player")}>
+                <button className="button-primary" onClick={() => jouerAttaque("player")}>
                   <ArrowUpRight size={16} /> Votre attaque
                 </button>
-                <button className="button-outline" onClick={() => replayAttack("opponent")}>
+                <button className="button-outline" onClick={() => jouerAttaque("opponent")}>
                   <ArrowDownRight size={16} /> Riposte
                 </button>
               </div>
@@ -125,8 +138,9 @@ export function AnimationWorkshop() {
             <div className="demo-stage battle-stage" aria-label="Démonstration d’attaque entre deux cartes">
               <div className="battle-line"><span>JOUEUR</span><ArrowLeftRight size={15} /><span>ADVERSAIRE</span></div>
               <div className="card-row battle-cards">
-                <PlayingCard id="battle-player" className={attackingSide === "player" ? "attack-right" : ""} />
-                <PlayingCard id="battle-opponent" className={attackingSide === "opponent" ? "attack-left" : ""} />
+                {attackingCardsIds.map((cardId) => (
+                  <PlayingCard key={cardId} id={cardId}/>
+                ))}
               </div>
             </div>
           </article>
@@ -137,11 +151,11 @@ export function AnimationWorkshop() {
               <p>Modifiez votre budget de mana. Les cartes jouables s’illuminent dès que vous en avez assez.</p>
               <div className="mana-control">
                 <div className="mana-stepper">
-                  <button className="stepper-button" onClick={() => setMana((value) => Math.max(0, value - 1))} disabled={mana === 0} aria-label="Retirer un mana">
+                  <button className="stepper-button" onClick={() => changerMana(Math.max(0, mana - 1))} disabled={mana === 0} aria-label="Retirer un mana">
                     <Minus size={16} />
                   </button>
                   <span className="mana-total"><Zap size={17} /> {mana}<small>/ 6</small></span>
-                  <button className="stepper-button" onClick={() => setMana((value) => Math.min(6, value + 1))} disabled={mana === 6} aria-label="Ajouter un mana">
+                  <button className="stepper-button" onClick={() => changerMana(Math.min(6, mana + 1))} disabled={mana === 6} aria-label="Ajouter un mana">
                     <Plus size={16} />
                   </button>
                 </div>
@@ -150,7 +164,7 @@ export function AnimationWorkshop() {
                   className="mana-slider"
                   max={6}
                   min={0}
-                  onChange={(event) => setMana(Number(event.target.value))}
+                  onChange={(event) => changerMana(Number(event.target.value))}
                   type="range"
                   value={mana}
                 />
@@ -158,12 +172,8 @@ export function AnimationWorkshop() {
             </div>
             <div className="demo-stage mana-stage" aria-label={`Cartes jouables avec ${mana} manas`}>
               <div className="card-row">
-                {[
-                  { id: "mana-spark", title: "Étincelle", subtitle: "Élémentaire · Feu", theme: "coral" as const, cost: 1 },
-                  { id: "mana-keeper", title: "Gardien ancien", subtitle: "Protecteur · Terre", theme: "green" as const, cost: 3 },
-                  { id: "mana-oracle", title: "Oracle lunaire", subtitle: "Mystique · Air", theme: "violet" as const, cost: 5 },
-                ].map((card) => (
-                  <PlayingCard key={card.id} id={card.id} manaCost={card.cost} className={card.cost <= mana ? "mana-playable" : "mana-unavailable"} />
+                {costCards.map((card) => (
+                  <PlayingCard key={card.id} id={card.id} manaCost={card.cost} />
                 ))}
               </div>
             </div>
@@ -183,7 +193,7 @@ export function AnimationWorkshop() {
                 <label>
                   <span className="control-label">POUVOIR</span>
                   <select value={selectedPower} onChange={(event) => { setSelectedPower(event.target.value as PowerId); }}>
-                    {(["p1", "p2", "p3"] as PowerId[]).map((power) => (
+                    {powerIds.map((power) => (
                       <option key={power} value={power}>{power}</option>
                     ))}
                   </select>
