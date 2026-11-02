@@ -1,1 +1,1 @@
-# exercice-css-animations
+# css-animations-info
