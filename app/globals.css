@@ -648,11 +648,10 @@ main {
   width: 120px;
 }
 
-/* Le paquet est sous la 2e place : l'animation d'origine part de translateX(100%) */
+/* Le paquet est sous la 1re place (à gauche), là où la carte pigée arrive. */
 .draw-deck {
   justify-content: flex-start;
   margin-top: 35px;
-  padding-left: 120px;
 }
 
 .card-back {

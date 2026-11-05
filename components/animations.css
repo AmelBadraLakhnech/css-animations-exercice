@@ -57,10 +57,10 @@
  */
 @-webkit-keyframes flip-scale-2-ver-right {
   0% {
-    -webkit-transform: translateX(0) translateY(0) rotateY(0) scale(1);
-            transform: translateX(0) translateY(0) rotateY(0) scale(1);
-    -webkit-transform-origin: 100% 50%;
-            transform-origin: 100% 50%;
+    -webkit-transform: translateX(100%) translateY(190px) rotateY(-180deg) scale(1);
+            transform: translateX(100%) translateY(190px) rotateY(-180deg) scale(1);
+    -webkit-transform-origin: 0% 50%;
+            transform-origin: 0% 50%;
   }
   50% {
     -webkit-transform: translateX(50%) translateY(95px) rotateY(-90deg) scale(2);
@@ -69,18 +69,18 @@
             transform-origin: 50% 50%;
   }
   100% {
-    -webkit-transform: translateX(100%) translateY(190px) rotateY(-180deg) scale(1);
-            transform: translateX(100%) translateY(190px) rotateY(-180deg) scale(1);
-    -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
+    -webkit-transform: translateX(0) translateY(0) rotateY(0) scale(1);
+            transform: translateX(0) translateY(0) rotateY(0) scale(1);
+    -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
   }
 }
 @keyframes flip-scale-2-ver-right {
   0% {
-    -webkit-transform: translateX(0) translateY(0) rotateY(0) scale(1);
-            transform: translateX(0) translateY(0) rotateY(0) scale(1);
-    -webkit-transform-origin: 100% 50%;
-            transform-origin: 100% 50%;
+    -webkit-transform: translateX(100%) translateY(190px) rotateY(-180deg) scale(1);
+            transform: translateX(100%) translateY(190px) rotateY(-180deg) scale(1);
+    -webkit-transform-origin: 0% 50%;
+            transform-origin: 0% 50%;
   }
   50% {
     -webkit-transform: translateX(50%) translateY(95px) rotateY(-90deg) scale(2);
@@ -89,10 +89,10 @@
             transform-origin: 50% 50%;
   }
   100% {
-    -webkit-transform: translateX(100%) translateY(190px) rotateY(-180deg) scale(1);
-            transform: translateX(100%) translateY(190px) rotateY(-180deg) scale(1);
-    -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
+    -webkit-transform: translateX(0) translateY(0) rotateY(0) scale(1);
+            transform: translateX(0) translateY(0) rotateY(0) scale(1);
+    -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
   }
 }
 
@@ -127,8 +127,8 @@
 
 
 .flip-scale-2-ver-right {
-	-webkit-animation: flip-scale-2-ver-right 0.5s linear reverse both;
-	        animation: flip-scale-2-ver-right 0.5s linear reverse both;
+	-webkit-animation: flip-scale-2-ver-right 0.5s linear both;
+	        animation: flip-scale-2-ver-right 0.5s linear both;
 }
 
 /* Ajouts pour l'exercice de la pige (hors de l'animation de la librairie) */
