@@ -38,6 +38,12 @@ export function AnimationsCSS() {
   const [mana, setMana] = useState(3);
   const [selectedCardId, setSelectedCardId] = useState(powerCards[0].id);
   const [selectedPowerId, setSelectedPowerId] = useState<PowerId>("p1");
+  // Nombre de cartes pigées après la première (0, 1 ou 2).
+  const [drawnCount, setDrawnCount] = useState(0);
+  // Les cartes de la pige : c42 est déjà visible, les deux autres sont dans le paquet.
+  const drawCards = powerCards;
+  // On affiche la plus récente à gauche : c'est elle qui prend la place de la carte visible.
+  const visibleDrawCards = drawCards.slice(0, drawnCount + 1).reverse();
 
   const firstCardId = "card1";
 
@@ -185,7 +191,42 @@ export function AnimationsCSS() {
             </div>
           </article>
 
-          {/* Écrire un nouvelle étape où l'on voit comment piger une carte flip-scale-2-ver-right */}
+          {/* Exercice de la pige */}
+          <article className="exercise-panel" id="exercice-6">
+            <div className="exercise-copy">
+              <h3>Piger une carte</h3>
+              <p>La carte du paquet se retourne, grandit et monte prendre la place de la carte visible, qui se décale vers la droite.</p>
+              <div className="button-pair">
+                <button className="button-primary" onClick={() => setDrawnCount(drawnCount + 1)} disabled={drawnCount === 2}>
+                  Piger
+                </button>
+                <button className="button-outline" onClick={() => setDrawnCount(0)}>
+                  Réinitialiser
+                </button>
+              </div>
+            </div>
+            <div className="demo-stage draw-stage" aria-label="Démonstration de la pige d’une carte">
+              <div className="card-row">
+                {visibleDrawCards.map((card, index) => {
+                  const isNewest = index === 0 && drawnCount > 0;
+                  return (
+                    <PlayingCard
+                      // La key change à chaque pige pour les anciennes cartes : l'animation recommence.
+                      key={isNewest ? card.id : `${card.id}-${drawnCount}`}
+                      id={`draw_${card.id}`}
+                      powerIds={card.powerIds}
+                      className={isNewest ? "flip-scale-2-ver-right" : drawnCount > 0 ? "slide-right" : ""}
+                    />
+                  );
+                })}
+              </div>
+              {drawnCount < 2 && (
+                <div className="card-row draw-deck">
+                  <PlayingCard id="deck" className="card-back" />
+                </div>
+              )}
+            </div>
+          </article>
         </div>
       </section>
     </main>

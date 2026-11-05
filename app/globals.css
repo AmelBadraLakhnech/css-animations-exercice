@@ -632,6 +632,42 @@ main {
   min-height: 188px;
 }
 
+/* Exercice de la pige : cartes de largeur fixe (120px + 10px d'espace = 130px de décalage). */
+.draw-stage {
+  min-height: 420px;
+  perspective: 800px;
+}
+
+.draw-stage .card-row {
+  justify-content: flex-start;
+  min-height: 155px;
+}
+
+.draw-stage .playing-card {
+  flex: none;
+  width: 120px;
+}
+
+/* Le paquet est sous la 2e place : l'animation d'origine part de translateX(100%) */
+.draw-deck {
+  justify-content: flex-start;
+  margin-top: 35px;
+  padding-left: 120px;
+}
+
+.card-back {
+  background: #819e88;
+  border-color: #6d8a74;
+}
+
+.card-back::before {
+  border: 1px solid #ffffff50;
+  border-radius: 4px;
+  content: "";
+  inset: 8px;
+  position: absolute;
+}
+
 @media (min-width: 1440px) {
   .hero {
     min-height: 560px;

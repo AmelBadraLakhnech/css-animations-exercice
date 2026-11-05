@@ -11,6 +11,7 @@ type PlayingCardProps = {
   manaCost?: number;
   powerIds?: PowerId[];
   className?: string;
+  style?: React.CSSProperties;
 };
 
 export function PlayingCard({
@@ -18,11 +19,13 @@ export function PlayingCard({
   manaCost,
   powerIds = [],
   className = "",
+  style,
 }: PlayingCardProps) {
   return (
     <article
       className={`playing-card ${className}`}
       id={id}
+      style={style}
       aria-label={`${manaCost === undefined ? "" : `, coût ${manaCost} manas`}`}
     >
       <div className="card-heading">
