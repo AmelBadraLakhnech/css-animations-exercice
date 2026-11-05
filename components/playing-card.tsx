@@ -12,6 +12,8 @@ type PlayingCardProps = {
   powerIds?: PowerId[];
   className?: string;
   style?: React.CSSProperties;
+  // Si true, la carte est affichée face cachée (on voit son dos).
+  faceDown?: boolean;
 };
 
 export function PlayingCard({
@@ -20,44 +22,51 @@ export function PlayingCard({
   powerIds = [],
   className = "",
   style,
+  faceDown = false,
 }: PlayingCardProps) {
   return (
     <article
-      className={`playing-card ${className}`}
+      className={`playing-card ${faceDown ? "face-down" : ""} ${className}`}
       id={id}
       style={style}
       aria-label={`${manaCost === undefined ? "" : `, coût ${manaCost} manas`}`}
     >
-      <div className="card-heading">
-        <div>
-          <span className="card-id">{id}</span>
+      {/* Côté face : le contenu de la carte */}
+      <div className="card-face card-front">
+        <div className="card-heading">
+          <div>
+            <span className="card-id">{id}</span>
+          </div>
+          {manaCost !== undefined && (
+            <span className="mana-gem" aria-label={`${manaCost} manas`}>
+              {manaCost}
+            </span>
+          )}
         </div>
-        {manaCost !== undefined && (
-          <span className="mana-gem" aria-label={`${manaCost} manas`}>
-            {manaCost}
-          </span>
-        )}
+
+        <div className="card-footer">
+          {powerIds.length > 0 && (
+            <div className="power-list" aria-label="Pouvoirs">
+              {powerIds.map((powerId) => (
+                <span
+                  className="power-token"
+                  data-power-id={powerId}
+                  // TODO: il faut rendre l'id unique! Présentement, si on a plusieurs cartes avec le même pouvoir, l'id sera dupliqué.
+                  id={`${powerId}`}
+                  key={powerId}
+                  title={`${powerId}`}
+                  aria-label={`${powerId}`}
+                >
+                  {powerId.slice(1)}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className="card-footer">
-        {powerIds.length > 0 && (
-          <div className="power-list" aria-label="Pouvoirs">
-            {powerIds.map((powerId) => (
-              <span
-                className="power-token"
-                data-power-id={powerId}
-                // TODO: il faut rendre l'id unique! Présentement, si on a plusieurs cartes avec le même pouvoir, l'id sera dupliqué.
-                id={`${powerId}`}
-                key={powerId}
-                title={`${powerId}`}
-                aria-label={`${powerId}`}
-              >
-                {powerId.slice(1)}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
+      {/* Côté pile : le dos de la carte, tourné de 180deg dans le CSS */}
+      <div className="card-face card-back-face" />
     </article>
   );
 }

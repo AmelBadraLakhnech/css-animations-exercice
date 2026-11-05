@@ -96,11 +96,6 @@
   }
 }
 
-/* Le dos de la carte est visible pendant la première moitié du retournement. */
-@keyframes flip-back-fade {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
 
 
 .player-attack {
@@ -134,15 +129,6 @@
 /* Ajouts pour l'exercice de la pige (hors de l'animation de la librairie) */
 .flip-scale-2-ver-right {
   z-index: 5;
-}
-
-.flip-scale-2-ver-right::after {
-  animation: flip-back-fade 0.5s linear both;
-  background: #819e88;
-  border-radius: inherit;
-  content: "";
-  inset: 0;
-  position: absolute;
 }
 
 /* Une carte déjà pigée se décale d'une place vers la droite (130px = largeur de carte + espace). */

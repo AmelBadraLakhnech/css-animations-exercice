@@ -219,7 +219,7 @@ export function AnimationsCSS() {
               </div>
               {!simpleDrawn && (
                 <div className="card-row draw-deck">
-                  <PlayingCard id="simple_deck" className="card-back" />
+                  <PlayingCard id="simple_deck" faceDown />
                 </div>
               )}
             </div>
@@ -256,7 +256,7 @@ export function AnimationsCSS() {
               </div>
               {drawnCount < 2 && (
                 <div className="card-row draw-deck">
-                  <PlayingCard id="deck" className="card-back" />
+                  <PlayingCard id="deck" faceDown />
                 </div>
               )}
             </div>

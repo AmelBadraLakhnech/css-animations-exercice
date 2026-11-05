@@ -276,8 +276,6 @@ main {
 }
 
 .playing-card {
-  background: #fff;
-  border: 1px solid #e4e3dc;
   border-radius: 6px;
   box-shadow: 0 3px 8px #2b35300a;
   color: #38454a;
@@ -288,10 +286,48 @@ main {
   max-width: 148px;
   min-height: 155px;
   min-width: 0;
-  overflow: hidden;
   padding: 9px;
   position: relative;
+  transform-style: preserve-3d;
   transition: box-shadow 220ms ease, border-color 220ms ease, opacity 220ms ease;
+}
+
+/* Les deux côtés de la carte sont superposés. Le côté caché n'est pas visible (backface-visibility). */
+.card-face {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  border: 1px solid #e4e3dc;
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  inset: 0;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: inherit;
+  position: absolute;
+}
+
+.card-front {
+  background: #fff;
+}
+
+.card-back-face {
+  background: #819e88;
+  border-color: #6d8a74;
+  transform: rotateY(180deg);
+}
+
+.card-back-face::before {
+  border: 1px solid #ffffff50;
+  border-radius: 4px;
+  content: "";
+  inset: 8px;
+  position: absolute;
+}
+
+/* Une carte face cachée montre son dos. */
+.face-down {
+  transform: rotateY(180deg);
 }
 
 .card-heading {
@@ -652,19 +688,6 @@ main {
 .draw-deck {
   justify-content: flex-start;
   margin-top: 35px;
-}
-
-.card-back {
-  background: #819e88;
-  border-color: #6d8a74;
-}
-
-.card-back::before {
-  border: 1px solid #ffffff50;
-  border-radius: 4px;
-  content: "";
-  inset: 8px;
-  position: absolute;
 }
 
 @media (min-width: 1440px) {
