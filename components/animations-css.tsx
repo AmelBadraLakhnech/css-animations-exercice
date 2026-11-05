@@ -40,6 +40,8 @@ export function AnimationsCSS() {
   const [selectedPowerId, setSelectedPowerId] = useState<PowerId>("p1");
   // Nombre de cartes pigées après la première (0, 1 ou 2).
   const [drawnCount, setDrawnCount] = useState(0);
+  // Pige simple : false = la carte est face cachée dans le paquet, true = elle a été pigée.
+  const [simpleDrawn, setSimpleDrawn] = useState(false);
   // Les cartes de la pige : c42 est déjà visible, les deux autres sont dans le paquet.
   const drawCards = powerCards;
   // On affiche la plus récente à gauche : c'est elle qui prend la place de la carte visible.
@@ -191,8 +193,40 @@ export function AnimationsCSS() {
             </div>
           </article>
 
-          {/* Exercice de la pige */}
+          {/* Exercice de la pige SIMPLE */}
           <article className="exercise-panel" id="exercice-6">
+            <div className="exercise-copy">
+              <h3>Piger une carte (simple)</h3>
+              <p>Une carte face cachée attend dans le paquet. Elle se retourne, grandit et monte à sa place.</p>
+              <div className="button-pair">
+                <button className="button-primary" onClick={() => setSimpleDrawn(true)} disabled={simpleDrawn}>
+                  Piger
+                </button>
+                <button className="button-outline" onClick={() => setSimpleDrawn(false)}>
+                  Réinitialiser
+                </button>
+              </div>
+            </div>
+            <div className="demo-stage draw-stage" aria-label="Démonstration simple de la pige d’une carte">
+              <div className="card-row">
+                {simpleDrawn && (
+                  <PlayingCard
+                    id="simple_c42"
+                    powerIds={powerCards[0].powerIds}
+                    className="flip-scale-2-ver-right"
+                  />
+                )}
+              </div>
+              {!simpleDrawn && (
+                <div className="card-row draw-deck">
+                  <PlayingCard id="simple_deck" className="card-back" />
+                </div>
+              )}
+            </div>
+          </article>
+
+          {/* Exercice de la pige COMPLEXE */}
+          <article className="exercise-panel" id="exercice-7">
             <div className="exercise-copy">
               <h3>Piger une carte</h3>
               <p>La carte du paquet se retourne, grandit et monte prendre la place de la carte visible, qui se décale vers la droite.</p>
