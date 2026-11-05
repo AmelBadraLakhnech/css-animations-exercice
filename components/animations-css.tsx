@@ -213,7 +213,7 @@ export function AnimationsCSS() {
                   <PlayingCard
                     id="simple_c42"
                     powerIds={powerCards[0].powerIds}
-                    className="flip-scale-2-ver-right"
+                    // TODO: Ajouter la classe d'animation pour que la carte se retourne
                   />
                 )}
               </div>
@@ -262,7 +262,7 @@ export function AnimationsCSS() {
                           key={card.id}
                           id={`draw_${card.id}`}
                           powerIds={card.powerIds}
-                          className="flip-scale-2-ver-right"
+                          // TODO: Ajouter la classe d'animation pour que la carte se retourne
                         />
                       );
                     }
@@ -276,7 +276,7 @@ export function AnimationsCSS() {
                           key={`${card.id}-${drawnCount}`}
                           id={`draw_${card.id}`}
                           powerIds={card.powerIds}
-                          className="slide-right"
+                          // TODO: Ajouter la classe d'animation pour que la carte se retourne déplace vers la droite
                         />
                       );
                     }
