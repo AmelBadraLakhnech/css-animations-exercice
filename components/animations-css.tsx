@@ -184,6 +184,8 @@ export function AnimationsCSS() {
               </div>
             </div>
           </article>
+
+          {/* Écrire un nouvelle étape où l'on voit comment piger une carte flip-scale-2-ver-right */}
         </div>
       </section>
     </main>
