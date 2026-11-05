@@ -242,16 +242,46 @@ export function AnimationsCSS() {
             <div className="demo-stage draw-stage" aria-label="Démonstration de la pige d’une carte">
               <div className="card-row">
                 {visibleDrawCards.map((card, index) => {
-                  const isNewest = index === 0 && drawnCount > 0;
-                  return (
-                    <PlayingCard
-                      // La key change à chaque pige pour les anciennes cartes : l'animation recommence.
-                      key={isNewest ? card.id : `${card.id}-${drawnCount}`}
-                      id={`draw_${card.id}`}
-                      powerIds={card.powerIds}
-                      className={isNewest ? "flip-scale-2-ver-right" : drawnCount > 0 ? "slide-right" : ""}
-                    />
-                  );
+                  // Si aucune carte n'a été pigée, on affiche la carte normalement sans animation.
+                  if(drawnCount === 0) {
+                    return (
+                      <PlayingCard
+                        key={card.id}
+                        id={`draw_${card.id}`}
+                        powerIds={card.powerIds}
+                      />
+                    );
+                  }
+                  else{
+                    // Si c'est la première carte pigée, on applique l'animation de flip.
+                    if(index ===0){
+                      return (
+                        <PlayingCard
+                          // La key change à chaque pige pour les anciennes cartes : l'animation recommence.
+                          // Pas simple à comprendre, mais c'est pour que le système considère que c'est un nouvel élément du DOM et qu'il doit rejouer l'animation.
+                          key={card.id}
+                          id={`draw_${card.id}`}
+                          powerIds={card.powerIds}
+                          className="flip-scale-2-ver-right"
+                        />
+                      );
+                    }
+                    // Sinon, on applique l'animation de glissement vers la droite.
+                    else{
+                      return (
+                        <PlayingCard
+                          // La key change à chaque pige pour les anciennes cartes : l'animation recommence donc.
+                          // Pas simple à comprendre, mais c'est pour que le système considère que c'est un nouvel élément du DOM et qu'il doit rejouer l'animation.
+                          // Sinon on doit faire comme dans les autres exemples et retirer et ensuite ajouter la classe...
+                          key={`${card.id}-${drawnCount}`}
+                          id={`draw_${card.id}`}
+                          powerIds={card.powerIds}
+                          className="slide-right"
+                        />
+                      );
+                    }
+                  }
+                  
                 })}
               </div>
               {drawnCount < 2 && (
