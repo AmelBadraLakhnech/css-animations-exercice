@@ -74,3 +74,25 @@
 .slide-right {
   animation: slide-right 0.5s ease-in-out both;
 }
+
+
+@keyframes flip-scale-2-ver-right {
+  0% {
+            transform: translateX(100%) rotateY(-180deg) scale(1) translateY(190px);
+            transform-origin: 0% 50%;
+  }
+  50% {
+            transform: translateX(50%) rotateY(-90deg) scale(2);
+            transform-origin: 50% 50%;
+  }
+  100% {
+            transform: translateX(0) rotateY(0) scale(1) translateY(0px);
+            transform-origin: 100% 50%;
+  }
+}
+
+
+.flip-scale-2-ver-right {
+	        animation: flip-scale-2-ver-right 0.5s linear both;
+          z-index: 5;
+}
